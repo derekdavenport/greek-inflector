@@ -1,0 +1,17 @@
+{
+  "name": "greek-inflector",
+  "version": "0.0.0",
+  "description": "greek-inflector",
+  "main": "app.js",
+  "author": {
+    "name": "Derek Davenport"
+  },
+  "devDependencies": {
+    "@types/node": "^10.14.3",
+    "typescript": "^3.3.4000"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  }
+}
