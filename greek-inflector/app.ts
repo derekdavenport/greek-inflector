@@ -2,9 +2,13 @@
 	'ή': 'ή',
 };
 
+
 type Declensions = {
-	[declension: string]: Endings;
+	'1': Endings;
+	'2': Endings;
 };
+
+type Declension = keyof Declensions;
 
 type Endings = {
 	[ending: string]: Numbers;
@@ -15,6 +19,8 @@ type Numbers = {
 	plural: Cases;
 };
 
+type Num = keyof Numbers;
+
 type Cases = {
 	nominative: string;
 	genitive: string;
@@ -22,6 +28,8 @@ type Cases = {
 	accusative: string;
 	vocative: string;
 };
+
+type Case = keyof Cases;
 
 const nounDeclensions: Declensions = {
 	'1': {
@@ -313,7 +321,7 @@ function normalize(text: string): string {
 	return text;
 }
 
-function inflectNoun(lexicalForm: string, declension: '1' | '2', num: 'singular' | 'plural', cas: 'nominative' | 'genitive' | 'dative' | 'accusative' | 'vocative') {
+function inflectNoun(lexicalForm: string, declension: Declension, num: Num, cas: Case) {
 	// lexicalForm = normalize(lexicalForm);
 	const endings = nounDeclensions[declension];
 	const ending = Object.keys(endings).find(ending => lexicalForm.endsWith(ending));
@@ -321,9 +329,9 @@ function inflectNoun(lexicalForm: string, declension: '1' | '2', num: 'singular'
 		throw Error(lexicalForm + ' has an unknown ending for declension ' + declension);
 	}
 	const stem = lexicalForm.substring(0, lexicalForm.length - ending.length)
-	const number = endings[ending];
+	const numbers = endings[ending];
 
-	return stem + number[num][cas];
+	return stem + numbers[num][cas];
 }
 
 console.log(inflectNoun('δόξα', '1', 'singular', 'genitive'));
